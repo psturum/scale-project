@@ -11,17 +11,20 @@ food_list = ['apple_pie','pizza','omelette','caesar_salad','ceviche', 'grilled_c
              'pulled_pork_sandwich','risotto','seaweed_salad','spaghetti_carbonara','tiramisu','waffles']
 prediction = ""
 
-#Helper function for predicting 
-def predict_class(model, image1, show = True):
-    img = image.load_img(image1, target_size=(299, 299))
-    img = image.img_to_array(img)                    
-    img = np.expand_dims(img, axis=0)         
-    img /= 255.                                      
-
-    pred = model.predict(img)
-    index = np.argmax(pred)
-    food_list.sort()
-    return food_list[index]
+#Method for predicting food
+def predict_class(model, images):
+    list = []  
+    for img in images:
+        img = image.load_img(img, target_size=(299, 299))
+        img = image.img_to_array(img)                    
+        img = np.expand_dims(img, axis=0)         
+        img /= 255.                                    
+        pred = model.predict(img)
+        index = np.argmax(pred)
+        food_list.sort()
+        # print(food_list[index])
+        list += [food_list[index]]
+    return list
     # print("Tallerkenen indeholder " + food_list[index])
     # if show:
     #     plt.imshow(img[0])                           
@@ -30,16 +33,25 @@ def predict_class(model, image1, show = True):
     #     plt.show()
 
 
-#Loading model
-model_best = load_model('best_model_14class.hdf5',compile = False)
-test_image = ('pizza2.jpeg')
-prediction = predict_class(model_best, test_image, True)
-
-#Using conversion table to get gCO2e per 100g of given food class
-df = pd.read_csv (r'conversion_table.csv',header=0)
-df1 = (df.loc[df['food'] == prediction])
-emission = df1['emission'].values
+# #Loading model
+# model_best = load_model('best_model_14class.hdf5',compile = False)
+# test_images = ["pizza2.jpeg", "test.jpeg", "pulled_pork.jpeg"]
 
 
-print(prediction)
-print("Tallerkenen indeholder {}, som udleder {} gCO2 per 100g".format(prediction, emission[0]))
+#Method given list of food predictions as input, transforms into emission as output
+def predict_emission(list_food, weights):
+    emission = 0
+    df = pd.read_csv (r'conversion_table.csv',header=0)
+    i = 0
+
+    for food in list_food:
+        #Using conversion table to get gCO2e per 100g of given food class
+        df = pd.read_csv (r'conversion_table.csv',header=0)
+        df1 = (df.loc[df['food'] == food])
+        emission += df1['emission'].values * weights[i]/100
+        i += 1
+    
+    return emission, list_food
+
+
+# print(predict_emission(predict_class(model_best, test_images), [80, 100, 120]))

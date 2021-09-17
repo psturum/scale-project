@@ -1,8 +1,8 @@
 import usb.core
 import usb.util
 
-VENDOR_ID = 1
-PRODUCT_ID = 2
+VENDOR_ID = 0x0922
+PRODUCT_ID = 0x8003
 
 # find the USB device
 device = usb.core.find(idVendor=VENDOR_ID,
@@ -21,11 +21,10 @@ while data is None and attempts > 0:
         data = device.read(endpoint.bEndpointAddress,
                            endpoint.wMaxPacketSize)
     except usb.core.USBError as e:
+        print(e)
         data = None
         if e.args == ('Operation timed out',):
             attempts -= 1
             continue
 
-grams = data[4] + (256 * data[5])
-
-
+print(data)

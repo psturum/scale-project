@@ -2,15 +2,15 @@ from tensorflow.keras.preprocessing import image
 from tensorflow.keras.models import load_model
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 from tensorflow.python.ops.gen_array_ops import where
-# import matplotlib.pyplot as plt
 
 
 #List of classes trained in model
 food_list = ['apple_pie','pizza','omelette','caesar_salad','ceviche', 'grilled_cheese_sandwich', 'hamburger','macaroni_and_cheese',
              'pulled_pork_sandwich','risotto','seaweed_salad','spaghetti_carbonara','tiramisu','waffles']
 
-#Method for predicting food
+#Method for predicting food in images
 def predict_class(model, images):
     list = []  
     for img in images:
@@ -22,6 +22,10 @@ def predict_class(model, images):
         index = np.argmax(pred)
         food_list.sort()
         list += [food_list[index]]
+
+        # plt.imshow(img)                           
+        # plt.axis('off')
+        # plt.show()
     return list
     # print("Tallerkenen indeholder " + food_list[index])
     # if show:

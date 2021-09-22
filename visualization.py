@@ -4,19 +4,19 @@ from PIL import Image, ImageFont, ImageDraw
 import cv2
   
 # read the images
-high_carbon = Image.open("visualization_pics/High_Carbon_viz_01.png")
-medium_carbon = Image.open("visualization_pics/Medium_Carbon_viz_01.png")
-low_carbon = Image.open("visualization_pics/Low_Carbon_viz_01.png")
-white_pic = Image.open("visualization_pics/white.png")
+high_carbon = Image.open("pictures/visualization_pics/High_Carbon_viz_01.png")
+medium_carbon = Image.open("pictures/visualization_pics/Medium_Carbon_viz_01.png")
+low_carbon = Image.open("pictures/visualization_pics/Low_Carbon_viz_01.png")
+white_pic = Image.open("pictures/visualization_pics/white.png")
 
 # Transform emission into visualization 
 def load_emission_pic(emission):
     if (emission > 9000/3*2):
-        high_carbon.save("temporary_pics/emission.png")
+        high_carbon.save("pictures/temporary_pics/emission.png")
     elif (emission > 9000/3):
-        medium_carbon.save("temporary_pics/emission.png")
+        medium_carbon.save("pictures/temporary_pics/emission.png")
     else:
-        low_carbon.save("temporary_pics/emission.png")
+        low_carbon.save("pictures/temporary_pics/emission.png")
 
 # Transform leaderboard into visualization
 def load_leaderboard_pic(leaderboard_pic, leaderboard, name):
@@ -40,7 +40,7 @@ def load_leaderboard_pic(leaderboard_pic, leaderboard, name):
         drawing.text((450, 1600), leaderboard[2][1], fill=(255, 255, 255), font = font)
         drawing.text((1500, 1700), str(int(leaderboard[2][0])), fill=(255, 255, 255), font = font1)
 
-    pic.save(name, Path = "temporary_pics")
+    pic.save(name, Path = "pictures/temporary_pics")
 
 def load_submission_pic(username, score):
     img = white_pic
@@ -52,7 +52,7 @@ def load_submission_pic(username, score):
     drawing.text((100, 200), username, fill=(0, 0, 0), font = font)
     drawing.text((100, 450), "CO2 Udledning: ", fill=(0, 0, 0), font = font)
     drawing.text((100, 550), text_score + " gCO2e", fill=(0, 0, 0), font = font)
-    img.save("temporary_pics/team_score.png")
+    img.save("pictures/temporary_pics/team_score.png")
 
 
 # Helper function to combine pictures vertically
@@ -64,7 +64,7 @@ def combine_pics(pic1, pic2, i):
     im_v = cv2.vconcat([resized, resized1])
   
     # Write the output image
-    cv2.imwrite("temporary_pics/combined" + str(i) + ".png", im_v)
+    cv2.imwrite("pictures/temporary_pics/combined" + str(i) + ".png", im_v)
 
 
 # Helper function to combine pictures horrtizontally
@@ -76,7 +76,7 @@ def combine_pics1(pic1, pic2):
     im_v = cv2.hconcat([resized, resized1])
   
     # show the output image
-    cv2.imwrite("temporary_pics/combined2.png", im_v)
+    cv2.imwrite("pictures/temporary_pics/combined2.png", im_v)
 
 
 

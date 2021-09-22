@@ -13,14 +13,11 @@ visualization.py:
 user_interaction.py:
 - Contain functions for producing user input
 
-visualization_pics:
-- Contain images for visualization
-
-camera_pics:
-- Contain temporary images used for input
-
-pics:
-- Contain images used for testing
+pictures:
+- camera_pics contain user image input
+- temporary_pics holds temporary pictures used for visualization
+- visualization_pics contains template pictures
+- pics contain pictures of food which can be predicted
 
 font:
 - Contains fonts for visualizations

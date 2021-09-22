@@ -28,6 +28,7 @@ def game(input):
     predicted_emission = predict_emission(predicted_food, weights)
 
     #Updates scoreboard
+    print(predicted_emission)
     load_score(highest_3, (predicted_emission[0][0], username))
     load_score_1(worst_3, (predicted_emission[0][0], username))
 
@@ -37,9 +38,9 @@ def game(input):
 
     #Combining visuals
     load_submission_pic(username, int(predicted_emission[0][0]))
-    combine_pics("temporary_pics/top_3.png", "temporary_pics/worst_3.png", 0)
-    combine_pics("temporary_pics/team_score.png", "temporary_pics/emission.png", 1)
-    combine_pics1("temporary_pics/combined0.png", "temporary_pics/combined1.png")
+    combine_pics("pictures/temporary_pics/top_3.png", "pictures/temporary_pics/worst_3.png", 0)
+    combine_pics("pictures/temporary_pics/team_score.png", "pictures/temporary_pics/emission.png", 1)
+    combine_pics1("pictures/temporary_pics/combined0.png", "pictures/temporary_pics/combined1.png")
     print(predicted_food)
     
 
@@ -50,7 +51,7 @@ while True:
     game(user_input)
 
     # Show visualization
-    visuals = Image.open("temporary_pics/combined2.png")
+    visuals = Image.open("pictures/temporary_pics/combined2.png")
     visuals.show()
 
 

@@ -24,3 +24,13 @@ font:
 
 To run the program enter: python3 main.py
 Follow instructions in terminal
+
+
+Libraries needed:
+- numpy
+- tensorflow.keras
+- from PIL 
+- import pandas 
+- import cv2
+
+

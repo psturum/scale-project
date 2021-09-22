@@ -1,9 +1,7 @@
 from tensorflow.keras.preprocessing import image
-from tensorflow.keras.models import load_model
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-from tensorflow.python.ops.gen_array_ops import where
+
 
 
 #List of classes trained in model

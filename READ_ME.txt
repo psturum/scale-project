@@ -28,7 +28,7 @@ Follow instructions in terminal
 
 Libraries needed:
 - numpy
-- tensorflow.keras
+- tensorflow
 - from PIL 
 - import pandas 
 - import cv2

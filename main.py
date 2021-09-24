@@ -1,18 +1,28 @@
 # Initializing scoreboards
-from visualization import load_emission_pic, load_submission_pic, combine_pics, combine_pics1
+from visualization import load_emission_pic, load_input_output, load_submission_pic, combine_pics, combine_pics1, load_game_start
 from user_interaction import prepare_input
-from numpy.core.numeric import False_
 from predict import predict_class, predict_emission
 from leaderboard import load_score, load_score_1
 from tensorflow.keras.models import load_model
-from PIL import Image
+import cv2
+
 
 #Big number
 inf = 999999
 
-#Initiate leaderboard
+#Initiating
 highest_3 = [(0, "NA"), (0, "NA"), (0, "NA")]
 worst_3 = [(inf, "NA"), (inf, "NA"), (inf, "NA")]
+load_game_start("game_start.png")
+load_game_start("hold_navn.png")
+load_game_start("cam1.png")
+load_game_start("cam2.png")
+load_game_start("cam3.png")
+game_start = cv2.imread("pictures/temporary_pics/game_start.png")
+team_name = cv2.imread("pictures/temporary_pics/hold_navn.png")
+first = cv2.imread("pictures/temporary_pics/cam1.png")
+second = cv2.imread("pictures/temporary_pics/cam2.png")
+thid = cv2.imread("pictures/temporary_pics/cam3.png")
 
 #Loading model
 model_best = load_model('best_model_14class.hdf5', compile = False)
@@ -25,34 +35,55 @@ def game(input):
 
     #Make prediction / calculate emission
     predicted_food = predict_class(model_best, food)
+    print(predicted_food)
     predicted_emission = predict_emission(predicted_food, weights)
 
+    #Load input/output pick
+    camera_pics = ["pictures/camera_pics/pic0.png", "pictures/camera_pics/pic1.png", "pictures/camera_pics/pic2.png"]
+    load_input_output(camera_pics, predicted_food)
+
     #Updates scoreboard
-    print(predicted_emission)
     load_score(highest_3, (predicted_emission[0][0], username))
     load_score_1(worst_3, (predicted_emission[0][0], username))
 
     #Loading emission-picture corresponding to current emission prediction
     load_emission_pic(predicted_emission[0][0])
-    print(predicted_emission[0][0])
 
     #Combining visuals
     load_submission_pic(username, int(predicted_emission[0][0]))
     combine_pics("pictures/temporary_pics/top_3.png", "pictures/temporary_pics/worst_3.png", 0)
     combine_pics("pictures/temporary_pics/team_score.png", "pictures/temporary_pics/emission.png", 1)
     combine_pics1("pictures/temporary_pics/combined0.png", "pictures/temporary_pics/combined1.png")
-    print(predicted_food)
     
-
 while True:
-    # Initiating game
-    input("Press enter to play")
+    # Starting Game
+    cv2.imshow('image', game_start)
+    cv2.waitKey(1)
+    
+    #Exit program is char q is given
+    key = input("")
+    if key == "q":
+        break
+
+    #Insert name graphic
+    cv2.imshow('image', team_name)
+    cv2.waitKey(1)
+
+    #Taking photoes and running game
     user_input = prepare_input()
     game(user_input)
 
-    # Show visualization
-    visuals = Image.open("pictures/temporary_pics/combined2.png")
-    visuals.show()
+    #Loading prediction picture
+    input_output = cv2.imread("pictures/temporary_pics/input_output.png")
+    cv2.imshow('image', input_output)
+    cv2.waitKey(10000)
+
+    # Show leaderboards
+    leaderboard = cv2.imread("pictures/temporary_pics/combined2.png")
+    cv2.imshow('image', leaderboard)
+    cv2.waitKey(10000)
+
+
 
 
 

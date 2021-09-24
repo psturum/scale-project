@@ -1,0 +1,16 @@
+#Install pip
+python3 get-pip.py
+
+#Install packages
+pip install numpy
+pip install tensorflow
+pip install PIL
+pip install pandas
+pip install cv2
+
+#Removes packages
+pip uninstall numpy
+pip uninstall tensorflow
+pip uninstall PIL
+pip uninstall pandas
+pip uninstall cv2

@@ -1,15 +1,20 @@
-food,emission,shelf_life_back,shelf_life_fron
-omelette,728,3,2
-pulled_pork_sandwich,871,3,2
-risotto,559,5,4
-seaweed_salad,140,4,3
-spaghetti_carbonara,911,3,2
-tiramisu,1353,4,3
-waffles,352,5,4
-pizza,435,4,2
-macaroni_and_cheese,249,4,3
-grilled_cheese_sandwich,262,2,2
-hamburger,3060,1,1
-ceviche,281,2,1
-caesar_salad,293,1,0.5
-apple_pie,240,4,3
+food,emission,shelf_life_back,shelf_life_front
+Tærte,240,4,3
+Pizza,435,4,2
+Omelette,728,3,2
+Caesar salat,293,1,0.5
+Ceviche,281,2,1
+Toast,262,2,2
+Hamburger,3060,1,1
+Macaroni,249,4,3
+Pulled pork,871,3,2
+Risotto,559,5,4
+Tang salat,140,4,3
+Carbonara,911,3,2
+Tiramisu,1353,4,3
+Vafler,352,5,4
+
+
+
+
+

@@ -1,5 +1,5 @@
 # Initializing scoreboards
-from visualization import load_emission_pic, load_input_output, load_submission_pic, combine_pics, combine_pics1, load_game_start
+from visualization import load_emission_pic, load_input_output, load_submission_pic, combine_pics, combine_pics1, resize_pics
 from user_interaction import prepare_input
 from predict import predict_class, predict_emission
 from leaderboard import load_score, load_score_1
@@ -13,11 +13,11 @@ inf = 999999
 #Initiating
 highest_3 = [(0, "NA"), (0, "NA"), (0, "NA")]
 worst_3 = [(inf, "NA"), (inf, "NA"), (inf, "NA")]
-load_game_start("game_start.png")
-load_game_start("hold_navn.png")
-load_game_start("cam1.png")
-load_game_start("cam2.png")
-load_game_start("cam3.png")
+resize_pics("game_start.png")
+resize_pics("hold_navn.png")
+resize_pics("cam1.png")
+resize_pics("cam2.png")
+resize_pics("cam3.png")
 game_start = cv2.imread("pictures/temporary_pics/game_start.png")
 team_name = cv2.imread("pictures/temporary_pics/hold_navn.png")
 first = cv2.imread("pictures/temporary_pics/cam1.png")
@@ -35,7 +35,6 @@ def game(input):
 
     #Make prediction / calculate emission
     predicted_food = predict_class(model_best, food)
-    print(predicted_food)
     predicted_emission = predict_emission(predicted_food, weights)
 
     #Load input/output pick
@@ -76,12 +75,18 @@ while True:
     #Loading prediction picture
     input_output = cv2.imread("pictures/temporary_pics/input_output.png")
     cv2.imshow('image', input_output)
-    cv2.waitKey(10000)
+    cv2.waitKey(1)
+    key = input("Press enter to see result")
+    if key == "q":
+        break
 
     # Show leaderboards
     leaderboard = cv2.imread("pictures/temporary_pics/combined2.png")
     cv2.imshow('image', leaderboard)
-    cv2.waitKey(10000)
+    cv2.waitKey(1)
+    key = input("Press enter to see play again")
+    if key == "q":
+        break
 
 
 

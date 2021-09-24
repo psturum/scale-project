@@ -111,7 +111,7 @@ def load_input_output(input_pics, food):
     path = "pictures/temporary_pics/input_output.png"
     return path
 
-def load_game_start(picname):
+def resize_pics(picname):
     background = cv2.imread("pictures/visualization_pics/" + picname)
     resized = cv2.resize(background, (2000, 1500))
     cv2.imwrite("pictures/temporary_pics/" + picname, resized)
